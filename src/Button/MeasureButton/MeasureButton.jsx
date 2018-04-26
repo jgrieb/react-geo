@@ -14,7 +14,7 @@ import OlStyleStroke from 'ol/style/Stroke';
 import OlStyleFill from 'ol/style/Fill';
 import OlStyleCircle from 'ol/style/Circle';
 import OlInteractionDraw from 'ol/interaction/Draw';
-import OlObservable from 'ol/Observable';
+import { unByKey } from 'ol/Observable';
 import OlOverlay from 'ol/Overlay';
 
 import ToggleButton from '../ToggleButton/ToggleButton.jsx';
@@ -503,7 +503,7 @@ class MeasureButton extends React.Component {
     } = this.props;
 
     if (this._eventKeys.click) {
-      OlObservable.unByKey(this._eventKeys.click);
+      unByKey(this._eventKeys.click);
     }
 
     // Fix doubled label for lastPoint of line
@@ -689,7 +689,7 @@ class MeasureButton extends React.Component {
 
     Object.keys(this._eventKeys).forEach(key => {
       if (this._eventKeys[key]) {
-        OlObservable.unByKey(this._eventKeys[key]);
+        unByKey(this._eventKeys[key]);
       }
     });
     this.cleanupTooltips();
