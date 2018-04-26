@@ -1,5 +1,4 @@
-import OlSphere from 'ol/sphere';
-import OlProj from 'ol/proj';
+import { getLength, getArea } from 'ol/sphere';
 
 /**
  * This class provides some static methods which might be helpful when working
