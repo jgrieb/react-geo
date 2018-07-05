@@ -38,8 +38,8 @@ describe('MeasureUtil', () => {
         const expectedShortLength = MeasureUtil.getLength(shortLine, map);
         const expectedLongLength = MeasureUtil.getLength(longLine, map);
 
-        expect(expectedShortLength).toEqual(99.99999999669033);
-        expect(expectedLongLength).toEqual(100545.83533277796);
+        expect(expectedShortLength).toEqual(99.88824008937313);
+        expect(expectedLongLength).toEqual(100433.46540039503);
 
         TestUtil.removeMap(map);
       });
@@ -91,8 +91,8 @@ describe('MeasureUtil', () => {
         const expectedSmallArea = MeasureUtil.getArea(smallPoly, map);
         const expectedBigArea = MeasureUtil.getArea(bigPoly, map);
 
-        expect(expectedSmallArea).toBe(99.99999999454045);
-        expect(expectedBigArea).toBe(999999.9918059125);
+        expect(expectedSmallArea).toBe(99.7766050826797);
+        expect(expectedBigArea).toBe(997766.042705488);
 
         TestUtil.removeMap(map);
       });

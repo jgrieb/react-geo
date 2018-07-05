@@ -14,27 +14,17 @@ class MeasureUtil {
    * @param {OlGeomLineString} line The drawn line.
    * @param {OlMap} map An OlMap.
    * @param {Boolean} geodesic Is the measurement geodesic (default is true).
-   *
    * @return {number} The length of line in meters.
    */
   static getLength(line, map, geodesic = true) {
-    let length;
     if (geodesic) {
-      const wgs84Sphere = new OlSphere(6378137);
-      const coordinates = line.getCoordinates();
-      length = 0;
-      const sourceProj = map.getView().getProjection();
-      for (let i = 0, ii = coordinates.length - 1; i < ii; ++i) {
-        const c1 = OlProj.transform(
-          coordinates[i], sourceProj, 'EPSG:4326');
-        const c2 = OlProj.transform(
-          coordinates[i + 1], sourceProj, 'EPSG:4326');
-        length += wgs84Sphere.haversineDistance(c1, c2);
-      }
+      const opts = {
+        projection: map.getView().getProjection().getCode()
+      };
+      return getLength(line, opts);
     } else {
-      length = Math.round(line.getLength() * 100) / 100;
+      return Math.round(line.getLength() * 100) / 100;
     }
-    return length;
   }
 
   /**
@@ -52,6 +42,7 @@ class MeasureUtil {
     const decimalHelper = Math.pow(10, decimalPlacesInToolTips);
     const length = MeasureUtil.getLength(line, map, geodesic);
     let output;
+
     if (length > 1000) {
       output = (Math.round(length / 1000 * decimalHelper) /
                 decimalHelper) + ' km';
@@ -72,18 +63,14 @@ class MeasureUtil {
    * @return {String} The area of the polygon in square meter.
    */
   static getArea(polygon, map, geodesic = true) {
-    let area;
     if (geodesic) {
-      const wgs84Sphere = new OlSphere(6378137);
-      const sourceProj = map.getView().getProjection();
-      const geom = (polygon.clone().transform(
-        sourceProj, 'EPSG:4326'));
-      const coordinates = geom.getLinearRing(0).getCoordinates();
-      area = Math.abs(wgs84Sphere.geodesicArea(coordinates));
+      const opts = {
+        projection: map.getView().getProjection().getCode()
+      };
+      return getArea(polygon, opts);
     } else {
-      area = polygon.getArea();
+      return polygon.getArea();
     }
-    return area;
   }
 
   /**
